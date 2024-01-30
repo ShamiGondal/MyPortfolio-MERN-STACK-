@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /Coding
+Disallow: /Designs
+Disallow: /Services
+Disallow: /HireMe
+Disallow: /projects/
+Disallow: /Testimonials
+Disallow: /Moreonme
