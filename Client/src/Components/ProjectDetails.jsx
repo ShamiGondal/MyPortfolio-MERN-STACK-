@@ -6,7 +6,8 @@ import Loader from "./Loader";
 const ProjectDetails = () => {
   const { id } = useParams();
   const [project, setProject] = useState(null);
-  const localhost = `http://localhost:4000`;
+  // const localhost = `http://localhost:4000`;
+  const localhost = 'http://ec2-13-60-10-186.eu-north-1.compute.amazonaws.com:4000/api'
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   document.body.style.backgroundColor = "#e2e8f0";
@@ -14,7 +15,7 @@ const ProjectDetails = () => {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await fetch(`${localhost}/api/getProject/${id}`);
+        const response = await fetch(`${localhost}/getProject/${id}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }

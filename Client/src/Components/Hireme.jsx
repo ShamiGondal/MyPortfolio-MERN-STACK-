@@ -58,7 +58,8 @@ function Hireme() {
 
     // ... (previous code)
 
-    const localhost = 'http://localhost:4000';
+    // const localhost = 'http://localhost:4000';
+    const localhost = 'http://ec2-13-60-10-186.eu-north-1.compute.amazonaws.com:4000/api'
 
     const submitForm = async (formData, services) => {
         try {

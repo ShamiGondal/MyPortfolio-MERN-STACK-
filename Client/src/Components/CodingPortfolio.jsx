@@ -18,7 +18,8 @@ function CodingPortfolio() {
     const [projects, setProjects] = useState([]);
     const navigate = useNavigate();
     const [Loading, setLoading] = useState(true)
-    const localhost = 'http://localhost:4000/api'
+    // const localhost = 'http://localhost:4000/api'
+    const localhost = 'http://ec2-13-60-10-186.eu-north-1.compute.amazonaws.com:4000/api'
 
     const handleClick = () => {
         setIsDropdownOpen(!isDropdownOpen);
