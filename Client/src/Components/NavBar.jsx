@@ -1,24 +1,27 @@
 import { useState, useEffect } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import myimg from '../assets/myimg.jpg'
+import myimg from '../assets/myimg.jpg';
 
 function NavBar() {
     const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState('');
     const [data, setData] = useState([]);
     const [isFocused, setIsFocused] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
-    const [showSuggestions, setShowSuggestions] = useState(false); // Add state to control suggestions
-    const navigate = useNavigate()
+    const [showSuggestions, setShowSuggestions] = useState(false);
+    const [focusedIndex, setFocusedIndex] = useState(0); // Add state for focused suggestion index
+    const navigate = useNavigate();
+    const localhost = 'https://myportfolio-server-side.onrender.com'
+
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+
     const closeMenu = () => {
         setIsOpen(false);
     };
 
-    const localhost = `http://localhost:4000`
     const onChange = async (e) => {
         setValue(e.target.value);
 
@@ -30,10 +33,7 @@ function NavBar() {
 
             const res = await response.json();
 
-            // Assuming res is an array of projects
             const projects = res || [];
-
-            // Extract titles and _id from the projects array that match the entered value
             const filteredData = projects
                 .filter((project) => project.title.toLowerCase().includes(e.target.value.toLowerCase()))
                 .map(({ _id, title }) => ({ _id, title }));
@@ -49,28 +49,29 @@ function NavBar() {
         }
     };
 
-
-
-    const handleSuggestionClick = () => {
-        setShowSuggestions(false); // Hide suggestions after click
+    const handleSuggestionClick = (itemId) => {
+        navigate(`/projects/${itemId}`);
+        setValue(""); // Clear the input field
+        setShowSuggestions(false); 
     };
-
-    const handleReadMore=(itemid)=>{
-        navigate(`/projects/${itemid}`)
-    }
-
-
+    const handleReadMore = (itemId) => {
+        navigate(`/projects/${itemId}`);
+        
+    };
+    
 
     const handleKeyDown = (e) => {
-        if (e.key === "Enter") {
+        if (e.key === 'Enter') {
             // Treat Enter key as click
             // ... perform search or other action ...
-        } else if (e.key === "ArrowDown") {
-            // Move focus to the next suggestion
-            // TODO: Implement focus movement down to suggestions
-        } else if (e.key === "ArrowUp") {
-            // Move focus to the previous suggestion
-            // TODO: Implement focus movement up to suggestions
+        } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            e.preventDefault();
+
+            const totalSuggestions = data.length;
+            const direction = e.key === 'ArrowDown' ? 1 : -1;
+            let nextIndex = focusedIndex + direction;
+            nextIndex = (nextIndex + totalSuggestions) % totalSuggestions;
+            setFocusedIndex(nextIndex);
         }
     };
 
@@ -85,12 +86,9 @@ function NavBar() {
         return () => document.removeEventListener('click', handleClickOutside);
     }, [showSuggestions]);
 
-
     useEffect(() => {
-        closeMenu(); // Close the menu when the location changes (navigation item clicked)
+        closeMenu();
     }, [location]);
-
-
     return (
         <>
             <div className="">
@@ -137,7 +135,7 @@ function NavBar() {
                                         onChange={onChange}
                                         value={value}
                                         placeholder="Search"
-                                        className={`w-[180px] lg:w-[250px] md:w-[120px] sm:w-[250px] input-field rounded-lg p-[3px] pl-2 hover:text-black border-0 focus:outline-none ${value || isFocused ? "bg-white text-black" : "bg-slate-800"
+                                        className={`w-full lg:w-[250px] md:w-[120px]  input-field rounded-lg p-[3px] pl-2 hover:text-black border-0 focus:outline-none ${value || isFocused ? "bg-white text-black" : "bg-slate-800"
                                             }`}
                                         onFocus={() => setIsFocused(true)} // Set focus state
                                         onBlur={() => setIsFocused(false)} // Reset focus state
@@ -145,13 +143,13 @@ function NavBar() {
                                     />
                                     <button className="fa-solid fa-magnifying-glass absolute top-1/2 transform -translate-y-1/2 right-2 mt-[-5px] text-gray-400 "></button>
                                     {showSuggestions && (
-                                        <div className="dropdown bg-light absolute mt-[-4px] w-full z-50 text-dark">
+                                        <div className="dropdown bg-[#1f2937] absolute mt-[-4px] w-full z-50 text-light">
                                             {data.map((item) => (
                                                 <div key={item._id} onClick={() => {
                                                     setValue(item.title);
                                                     handleSuggestionClick();
                                                 }}>
-                                                    <li className='list-item  list-none text-gray-800 hover:bg-gray-200 p-2 transition-all duration-300  cursor-pointer '>
+                                                    <li className='list-item  list-none text-light hover:bg-gray-700 p-2 transition-all duration-300  cursor-pointer '>
                                                         <Link to={`/projects/${item._id}`} onClick={() => handleReadMore(item._id)}>{item.title}</Link>
                                                     </li>
                                                     <hr className='bg-blue-500' />

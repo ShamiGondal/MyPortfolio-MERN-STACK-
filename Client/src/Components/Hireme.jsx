@@ -59,7 +59,8 @@ function Hireme() {
     // ... (previous code)
 
     // const localhost = 'http://localhost:4000';
-    const localhost = 'http://ec2-13-60-10-186.eu-north-1.compute.amazonaws.com:4000/api'
+    const localhost = 'https://myportfolio-server-side.onrender.com'
+
 
     const submitForm = async (formData, services) => {
         try {
@@ -216,6 +217,8 @@ function Hireme() {
                                     <textarea
                                         rows={5}
                                         placeholder="Any extra info..."
+                                        name='moreDetails'
+                                        type='text'
                                         maxLength={100}
                                         onChange={handleInputChange}
                                         value={formData.moreDetails}

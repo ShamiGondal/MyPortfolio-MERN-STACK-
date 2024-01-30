@@ -4,10 +4,11 @@ import ModalImage from "react-modal-image";
 import Loader from "./Loader";
 
 const ProjectDetails = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
+console.log("Received Slug:", slug);
   const [project, setProject] = useState(null);
   // const localhost = `http://localhost:4000`;
-  const localhost = 'http://ec2-13-60-10-186.eu-north-1.compute.amazonaws.com:4000/api'
+  const localhost = 'https://myportfolio-server-side.onrender.com'
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   document.body.style.backgroundColor = "#e2e8f0";
@@ -15,7 +16,8 @@ const ProjectDetails = () => {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await fetch(`${localhost}/getProject/${id}`);
+        const url = `${localhost}/api/getProject/${slug}`;
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -32,7 +34,7 @@ const ProjectDetails = () => {
 
     setLoading(true); // Set loading to true when starting to fetch data
     fetchProject();
-  }, [id]);
+  }, [slug]);
 
   if (loading) {
     // Render loader while data is being loaded

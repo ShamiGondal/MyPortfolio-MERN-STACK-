@@ -91,7 +91,7 @@ function LandingPage() {
                 <div className="flex space-x-4 mt-2 md:mt-0 lg:mt-0 xl:mt-0">
                     <p className='hidden md:block lg:block xl:block'>|</p>
                     <div className="text-blue-700 font-semibold ">
-                        <a href="#" title='Download latest resume'  >Resume</a>
+                        <a href="https://drive.google.com/file/d/1veXwoHTnWbsJLyV3kcEDRVFlAhYBcefD/view?usp=sharing" target='_blank' rel="noopener noreferrer" title='Download latest resume'  >Resume</a>
                         <p className='font-extralight text-black italic'>Last Updated: Jan 24, 2024</p>
                     </div>
                     <>|</>

@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react';
 const Reservations = () => {
   const [formDetails, setFormDetails] = useState([]);
   const [reservationReceived, setReservationReceived] = useState(false);
-  const localhost = 'http://ec2-13-60-10-186.eu-north-1.compute.amazonaws.com:4000/api'
+  const localhost = 'https://myportfolio-server-side.onrender.com'
   useEffect(() => {
     const fetchFormDetails = async () => {
       try {
-        const response = await fetch(`${localhost}/getFormDetails`);
+        const response = await fetch(`${localhost}/api/getFormDetails`);
         const data = await response.json();
         console.log(data);
         setFormDetails(data);

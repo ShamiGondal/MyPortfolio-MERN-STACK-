@@ -25,6 +25,10 @@ const projectSchema = new mongoose.Schema({
     preview: String,
     github: String,
   },
+  slug: {
+    type: String,
+    unique: true,
+  },
 });
 
 module.exports = mongoose.model('Project', projectSchema);

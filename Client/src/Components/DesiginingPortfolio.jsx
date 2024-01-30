@@ -17,9 +17,9 @@ function CodingPortfolio() {
     const [selectedFilters, setSelectedFilters] = useState([]);
     const [projects, setProjects] = useState([]);
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
     // const localhost = 'http://localhost:4000/api'
-    const localhost = 'http://ec2-13-60-10-186.eu-north-1.compute.amazonaws.com:4000/api'
+    const localhost = 'https://myportfolio-server-side.onrender.com'
 
     const handleClick = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -46,14 +46,14 @@ function CodingPortfolio() {
         const fetchData = async () => {
             try {
                 setLoading(true); // Set loading to true when starting to fetch data
-                const response = await fetch(`${localhost}/getProjects`);
-    
+                const response = await fetch(`${localhost}/api/getProjects`);
+
                 if (response.ok) {
                     const data = await response.json();
                     const designingProjects = data.filter(
                         (project) => project.type === "designing"
                     );
-    
+
                     if (designingProjects.length > 0) {
                         setProjects(designingProjects);
                     }
@@ -66,7 +66,7 @@ function CodingPortfolio() {
                 setLoading(false); // Set loading to false regardless of success or failure
             }
         };
-    
+
         fetchData();
     }, []);
     const onChange = (e) => {
@@ -88,20 +88,22 @@ function CodingPortfolio() {
         );
     };
 
-    const handleReadMore = (projectId) => {
-        navigate(`/projects/${projectId}`);
+    const handleReadMore = (project) => {
+        navigate(`/projects/${project.slug}`);
     };
+
+
     const truncateText = (text, limit) => {
         const words = text.split(' ');
         const truncatedText = words.length > limit ? `${words.slice(0, limit).join(' ')}...` : text;
         return truncatedText;
-      };
+    };
 
     return (
         <div>
-        {loading ? (
-        <Loader />
-      ) : (
+            {loading ? (
+                <Loader />
+            ) : (
                 <div
                     className={`p-3 flex-col items-center justify-center mb-2 bg-slate-50 ${isBodyMoved ? "mt-[-40px]" : ""
                         }`}
@@ -184,27 +186,22 @@ function CodingPortfolio() {
                                     <Typography variant="h5" color="blue-gray" className="mb-2">
                                         {project.title}
                                     </Typography>
-                                    <Typography>{truncateText(project.overview,40)}</Typography>
+                                    <Typography>{truncateText(project.overview, 40)}</Typography>
                                 </CardBody>
                                 <CardFooter className="p-3">
-                                    <Link
-                                        to={`/projects/${project._id}`}
-                                        onClick={() => handleReadMore(project._id)}
-                                    >
-                                        <Button
-                                            variant="gradient"
-                                            className="text-white p-3 bg-dark"
-
-                                        >
+                                    <Link to={`/projects/${project.slug}`} onClick={() => handleReadMore(project)}>
+                                        <Button variant="gradient" className="text-white p-3 bg-dark">
                                             <span>Read more</span>
                                         </Button>
                                     </Link>
+
+
                                 </CardFooter>
                             </Card>
                         ))}
                     </div>
                 </div>
-      )}
+            )}
         </div>
     );
 }

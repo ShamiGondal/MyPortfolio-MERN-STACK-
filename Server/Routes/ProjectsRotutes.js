@@ -3,12 +3,19 @@ const express = require('express');
 const router = express.Router();
 const Project = require('../Models/ProjectSchema');
 const FormDataModel = require('../Models/FormSchema.jsx')
+const slugify = require('slugify');
 
 
 router.post('/addProject', async (req, res) => {
   try {
     const projectData = req.body;
+    projectData.slug = slugify(projectData.title, { lower: true });
+  
+
+    // Create a new Project instance with the submitted data
     const project = new Project(projectData);
+
+    // Save the project to the database
     await project.save();
     res.status(201).json({ message: 'Project added successfully' });
   } catch (error) {
@@ -27,16 +34,20 @@ router.get('/getProjects', async (req, res) => {
   }
 });
 
-router.get('/getProject/:id', async (req, res) => {
-  const id = req.params.id;
+router.get('/getProject/:slug', async (req, res) => {
+  const slug = req.params.slug;
   try {
-    const project = await Project.findOne({ _id: id });
+    const project = await Project.findOne({ slug: slug });
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
     res.json(project);
   } catch (error) {
     console.error('Error fetching project:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 
 router.put('/updateProject/:id', async (req, res) => {
