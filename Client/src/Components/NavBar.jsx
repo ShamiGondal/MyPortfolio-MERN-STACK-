@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import myimg from '../assets/myimg.jpg';
+import { Helmet } from "react-helmet";
 
 function NavBar() {
     const location = useLocation();
@@ -12,6 +13,7 @@ function NavBar() {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [focusedIndex, setFocusedIndex] = useState(0); // Add state for focused suggestion index
     const navigate = useNavigate();
+    const [projects, setProjects] = useState([]);
     const localhost = 'https://myportfolio-server-side.onrender.com'
 
     const toggleMenu = () => {
@@ -49,16 +51,33 @@ function NavBar() {
         }
     };
 
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                const response = await fetch(`${localhost}/api/getProjects`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const projectsData = await response.json();
+                setProjects(projectsData || []);
+            } catch (error) {
+                console.error('Error fetching project data:', error.message);
+            }
+        };
+
+        fetchProjects();
+    }, []);
+
     const handleSuggestionClick = (itemId) => {
-        navigate(`/projects/${itemId}`);
-        setValue(""); // Clear the input field
-        setShowSuggestions(false); 
+        const selectedProject = projects.find((project) => project.title.toLowerCase() === itemId.toLowerCase());
+        if (selectedProject) {
+            navigate(`/projects/${selectedProject.slug}`);
+            setValue(""); // Clear the input field
+            setShowSuggestions(false);
+        }
     };
-    const handleReadMore = (itemId) => {
-        navigate(`/projects/${itemId}`);
-        
-    };
-    
+
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
@@ -91,6 +110,14 @@ function NavBar() {
     }, [location]);
     return (
         <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title className='text-xs'>Shami's Portfolio - Landing Page | MERN Stack, Game, C++, & React Native Developer</title>
+                <meta charset="UTF-8" />
+                <meta name="description" content="Elevate your digital presence with Shami Ahmed Gondal, a versatile developer skilled in crafting modern web and mobile experiences. Explore my portfolio to discover how I leverage cutting-edge technologies to meet your needs, or contact me today to discuss your project!" />
+                <meta name="keywords" content="mern stack developer, game developer, cpp developer, react native developer, frontend developer, backend developer, full stack developer, javascript developer, web developer, mobile developer, portfolio, hire developer, freelance developer" />
+                <meta name="author" content="Ehtisham Ahmed Gondal" />
+            </Helmet>
             <div className="">
                 <div className="">
                     <nav className="py-2 bg-[#1f2937] fixed-top   ">
@@ -143,14 +170,11 @@ function NavBar() {
                                     />
                                     <button className="fa-solid fa-magnifying-glass absolute top-1/2 transform -translate-y-1/2 right-2 mt-[-5px] text-gray-400 "></button>
                                     {showSuggestions && (
-                                        <div className="dropdown bg-[#1f2937] absolute mt-[-4px] w-full z-50 text-light">
+                                        <div className="dropdown bg-[#1f2937] absolute bg-opacity-98 opacity-95 mt-[-4px] w-full z-50 text-light">
                                             {data.map((item) => (
-                                                <div key={item._id} onClick={() => {
-                                                    setValue(item.title);
-                                                    handleSuggestionClick();
-                                                }}>
+                                                <div key={item._id} onClick={() => handleSuggestionClick(item.title)}>
                                                     <li className='list-item  list-none text-light hover:bg-gray-700 p-2 transition-all duration-300  cursor-pointer '>
-                                                        <Link to={`/projects/${item._id}`} onClick={() => handleReadMore(item._id)}>{item.title}</Link>
+                                                        <Link to={`/projects/${item._id}`} >{item.title} <i className="fa-solid fa-arrow-up-right-from-square ml-2 text-xs"></i></Link>
                                                     </li>
                                                     <hr className='bg-blue-500' />
                                                 </div>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import myimg from '../assets/myimg.jpg';
+import { Helmet } from "react-helmet";
 
 function Hireme() {
     const [services, setServices] = useState({
@@ -119,6 +120,20 @@ function Hireme() {
 
 
     return (
+        <>
+        <Helmet>
+                <meta charSet="utf-8" />
+                <title className='text-xs'>Shami's Portfolio  - Hire me | Contact us | MERN Stack, Game, C++, & React Native Developer</title>
+                <meta charset="UTF-8" />
+                <meta name="description" content="Let's Collaborate: Turn Your vision into reality.
+                I'm passionate about bringing your ideas to life through innovative coding solutions. Whether you have a fully fleshed-out project or just a spark of an idea, I'm eager to hear from you.
+                This form is your bridge to:
+                Discuss your project requirements in detail. Share your vision, goals, and any specific needs you have. Explore potential solutions and approaches. Together, we can brainstorm and tailor the perfect solution for your unique project. Get a free quote and timeline estimation. Understand the investment involved and set realistic expectations.Don't hesitate to reach out! I'm always happy to answer questions, discuss your project, or simply connect and explore potential collaborations." />
+                <meta name="keywords" content="web developer, [Lahore JoharTown], Figam, Medium-fedility-wrieframe, canva, photoshop,mobile developer, [Lahore JoharTown] React Native developer, [Lahore JoharTown]  MERN Stack developer, [Lahore JoharTown] freelance developer, [Lahore JoharTown], web developer shami gondal, game developer shami gondal , app developer shami gondal, game developer Ehtisham Ahmed gondal, app developer Ehtisham Ahmed gondal, web developer Ehtisham Ahmed gondal, Canva Designer Ehtisham Ahmed gondal
+                ,Photopshop Designer Ehtisham Ahmed gondal, Figma Designer Ehtisham Ahmed gondal, Medium-fedility Designer Ehtisham Ahmed gondal,
+                hire [game , app, e.g., web] [Lahore JoharTown], hireme, contact us, contact , Hire Ehtisham Ahmed Gondal" />
+                <meta name="author" content="Ehtisham Ahmed Gondal" />
+            </Helmet>
         <div className={`relative  mt-16 flex justify-center items-center  p-9 ${submitted ? 'form-submitted' : ''}`}>
             <form className={`form w-full sm:w-full md:w-[500px] lg:w-[700px] xl:w-[800px] p-5 bg-opacity-70 relative shadow-md shadow-black rounded-lg ${submitted ? 'flipped' : ''}`} onSubmit={handleSubmit}>
                 {submitted ? (
@@ -296,6 +311,7 @@ function Hireme() {
             </form>
             <ToastContainer />
         </div>
+        </>
     );
 }
 

@@ -4,10 +4,19 @@ import codesoft from '../assets/codesoft.jpg'
 import solutions from '../assets/shehgan.jpeg'
 import applayce from '../assets/applyace.jpg'
 import fiver from '../assets/fiver.png'
+import { Helmet } from "react-helmet";
 
 function LandingPage() {
     return (
         <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title className='text-xs'>Shami's Portfolio - Landing Page | MERN Stack, Game, C++, & React Native Developer</title>
+                <meta charset="UTF-8" />
+                <meta name="description" content="Elevate your digital presence with Shami Ahmed Gondal, a versatile developer skilled in crafting modern web and mobile experiences. Explore my portfolio to discover how I leverage cutting-edge technologies to meet your needs, or contact me today to discuss your project!" />
+                <meta name="keywords" content="mern stack developer, game developer, cpp developer, react native developer, frontend developer, backend developer, full stack developer, javascript developer, web developer, mobile developer, portfolio, hire developer, freelance developer" />
+                <meta name="author" content="Ehtisham Ahmed Gondal" />
+            </Helmet>
             <div className="container mx-auto flex flex-col-reverse md:flex-row justify-center items-center h-screen md:space-x-5 lg:space-x-5 mb-5 md:mb-5 lg:mb-5 xl:mb-5 mt-20 sm:mt-20 md:mt-10 lg:mt-0 xl:mt-0 ">
                 <div className="flex flex-col items-center space-y-2 animate__animated animate__fadeInUp mb-5 md:mb-0 lg:mb-0 xl:mb-0">
                     <h2 className="text-center font-bold mt-4 md:mt-0 text-2xl md:text-4xl">Hi! My Name is Ehtisham.</h2>

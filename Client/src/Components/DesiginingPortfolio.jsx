@@ -9,6 +9,7 @@ import {
     Button,
 } from "@material-tailwind/react";
 import Loader from "./Loader";
+import {Helmet }from 'react-helmet'
 
 function CodingPortfolio() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -88,11 +89,6 @@ function CodingPortfolio() {
         );
     };
 
-    const handleReadMore = (project) => {
-        navigate(`/projects/${project.slug}`);
-    };
-
-
     const truncateText = (text, limit) => {
         const words = text.split(' ');
         const truncatedText = words.length > limit ? `${words.slice(0, limit).join(' ')}...` : text;
@@ -101,6 +97,17 @@ function CodingPortfolio() {
 
     return (
         <div>
+        <Helmet>
+                <meta charSet="utf-8" />
+                <title className='text-xs'>Shami's Designing Portfolio - MERN Stack, Game, C++, & React Native Developer</title>
+                <meta charset="UTF-8" />
+                <meta name="description" content="Crafting Innovative Solutions - Your Vision, My Expertise
+                Bring your digital ideas to life with [Ehtisham Ahmed Gondal], a skilled and passionate developer crafting solutions that captivate and engage. Masterful command of [React Native , C++, e.g., MERN Stack, React Native, C++ , Canva, PhotoShop, Figma, Medium-fedility.wireframe]A proven track record of building captivating [types of projects you build, e.g., web applications, mobile apps, games].An unwavering commitment to exceeding expectations and delivering exceptional results" />
+                <meta name="keywords" content="web developer, [Lahore JoharTown], Figam, Medium-fedility-wrieframe, canva, photoshop,mobile developer, [Lahore JoharTown] React Native developer, [Lahore JoharTown]  MERN Stack developer, [Lahore JoharTown] freelance developer, [Lahore JoharTown], web developer shami gondal, game developer shami gondal , app developer shami gondal, game developer Ehtisham Ahmed gondal, app developer Ehtisham Ahmed gondal, web developer Ehtisham Ahmed gondal, Canva Designer Ehtisham Ahmed gondal
+                ,Photopshop Designer Ehtisham Ahmed gondal, Figma Designer Ehtisham Ahmed gondal, Medium-fedility Designer Ehtisham Ahmed gondal,
+                hire [game , app, e.g., web] [Lahore JoharTown]" />
+                <meta name="author" content="Ehtisham Ahmed Gondal" />
+            </Helmet>
             {loading ? (
                 <Loader />
             ) : (
@@ -189,7 +196,7 @@ function CodingPortfolio() {
                                     <Typography>{truncateText(project.overview, 40)}</Typography>
                                 </CardBody>
                                 <CardFooter className="p-3">
-                                    <Link to={`/projects/${project.slug}`} onClick={() => handleReadMore(project)}>
+                                    <Link to={`/projects/${project.slug}`} >
                                         <Button variant="gradient" className="text-white p-3 bg-dark">
                                             <span>Read more</span>
                                         </Button>

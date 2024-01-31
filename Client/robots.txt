@@ -1,4 +1,5 @@
 User-agent: *
+Allow: /$
 Disallow: /Coding
 Disallow: /Designs
 Disallow: /Services
@@ -6,3 +7,4 @@ Disallow: /HireMe
 Disallow: /projects/
 Disallow: /Testimonials
 Disallow: /Moreonme
+Sitemap: https://shami-portfolio.netlify.app/sitemap.xml
