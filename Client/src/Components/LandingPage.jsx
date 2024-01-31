@@ -4,8 +4,7 @@ import codesoft from '../assets/codesoft.jpg'
 import solutions from '../assets/shehgan.jpeg'
 import applayce from '../assets/applyace.jpg'
 import fiver from '../assets/fiver.png'
-import { Helmet } from "react-helmet";
-
+import { Helmet } from "react-helmet"
 function LandingPage() {
     return (
         <>
