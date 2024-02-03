@@ -5,7 +5,8 @@ import solutions from '../assets/shehgan.jpeg'
 import applayce from '../assets/applyace.jpg'
 import fiver from '../assets/fiver.png'
 import { Helmet } from "react-helmet";
-
+import { useEffect } from 'react';
+import { useSearch } from './SearchProvider';
 
 function Testimonials() {
 
@@ -24,8 +25,26 @@ function Testimonials() {
         navigate(-1)
     }
 
+    const { isSearchBoxVisible, setIsPageBlurred } = useSearch();
+    useEffect(() => {
+        const blurContainer = document.getElementById('blur-container');
+
+        if (blurContainer) {
+            if (isSearchBoxVisible) {
+                blurContainer.classList.add('blur');
+            } else {
+                blurContainer.classList.remove('blur');
+            }
+        }
+
+        return () => {
+            if (blurContainer) {
+                blurContainer.classList.remove('blur');
+            }
+        };
+    }, [isSearchBoxVisible]);
     return (
-        <div >
+        <div id='blur-container' >
             <Helmet>
                 <meta charSet="utf-8" />
                 <title className='text-xs'>Shami's Portfolio - Testimonails Page | MERN Stack, Game, C++, & React Native Developer</title>

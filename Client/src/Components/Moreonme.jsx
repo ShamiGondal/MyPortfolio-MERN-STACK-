@@ -1,9 +1,29 @@
 import myimg from '../assets/SAVE_20231214_211847-PhotoRoom.jpg'
 import { Helmet } from "react-helmet";
-
+import { useSearch } from './SearchProvider';
+import { useEffect } from 'react';
 function Moreonme() {
+
+    const { isSearchBoxVisible, setIsPageBlurred } = useSearch();
+    useEffect(() => {
+        const blurContainer = document.getElementById('blur-container');
+
+        if (blurContainer) {
+            if (isSearchBoxVisible) {
+                blurContainer.classList.add('blur');
+            } else {
+                blurContainer.classList.remove('blur');
+            }
+        }
+
+        return () => {
+            if (blurContainer) {
+                blurContainer.classList.remove('blur');
+            }
+        };
+    }, [isSearchBoxVisible]);
     return (
-        <>
+        <div id='blur-container'>
          <Helmet>
                 <meta charSet="utf-8" />
                 <title className='text-xs'>Shami's Portfolio - More on me | MERN Stack, Game, C++, & React Native Developer</title>
@@ -36,7 +56,7 @@ function Moreonme() {
             </div>
 
 
-        </>
+        </div>
     );
 }
 

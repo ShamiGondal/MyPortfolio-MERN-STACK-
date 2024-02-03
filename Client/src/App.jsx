@@ -12,6 +12,7 @@ import ProjectDetails from './Components/ProjectDetails';
 import Reservations from './Components/Reservations';
 import Testimonials from './Components/Testimonails';
 import Loader from './Components/Loader';
+import Blogs from './Components/Blogs';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -49,6 +50,7 @@ function App() {
               <Route path='/Reservations' element={<Reservations />}></Route>
               <Route path="/projects/:slug" element={<ProjectDetails />} ></Route>
               <Route path="/Testimonials" element={<Testimonials />} ></Route>
+              <Route path="/Blogs" element={<Blogs/>} ></Route>
             </Route>
           </Routes>
         </BrowserRouter>

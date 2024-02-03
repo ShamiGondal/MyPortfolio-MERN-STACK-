@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import ModalImage from "react-modal-image";
 import Loader from "./Loader";
 import { Helmet } from "react-helmet";
+import { useSearch } from "./SearchProvider";
 
 const ProjectDetails = () => {
   const { slug } = useParams();
@@ -12,7 +13,26 @@ const ProjectDetails = () => {
   const localhost = 'https://myportfolio-server-side.onrender.com'
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const { isSearchBoxVisible, setIsPageBlurred } = useSearch();
   document.body.style.backgroundColor = "#e2e8f0";
+
+  useEffect(() => {
+      const blurContainer = document.getElementById('blur-container');
+
+      if (blurContainer) {
+          if (isSearchBoxVisible) {
+              blurContainer.classList.add('blur');
+          } else {
+              blurContainer.classList.remove('blur');
+          }
+      }
+
+      return () => {
+          if (blurContainer) {
+              blurContainer.classList.remove('blur');
+          }
+      };
+  }, [isSearchBoxVisible]);
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -55,7 +75,7 @@ const ProjectDetails = () => {
 
 
   return (
-    <>
+    <div id="blur-container">
       <Helmet>
         <meta charSet="utf-8" />
         <title className='text-xs'> {project.title} - Project Details | MERN Stack, Game, C++, & React Native Developer</title>
@@ -191,7 +211,7 @@ const ProjectDetails = () => {
           Close
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

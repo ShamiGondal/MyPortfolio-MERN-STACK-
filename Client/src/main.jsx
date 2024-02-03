@@ -1,10 +1,16 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './index.css';
+import { SearchProvider } from './Components/SearchProvider.jsx';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+// Using createRoot
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    <SearchProvider>
+      <App />
+    </SearchProvider>
+  </React.StrictMode>
+);

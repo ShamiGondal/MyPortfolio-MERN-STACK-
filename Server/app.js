@@ -2,6 +2,7 @@ const express = require('express');
 const connectDB = require('./db/connection');
 const cors = require('cors');
 const projects = require('./Routes/ProjectsRotutes')
+const Blogs = require('./Routes/Blogs.jsx')
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/api/',projects );
+app.use('/api/', Blogs );
 
 
 app.listen(PORT, () => {

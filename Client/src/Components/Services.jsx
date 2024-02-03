@@ -4,7 +4,8 @@ import gameimg from '../assets/gameimg.png';
 import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import landingVideo from '../assets/laptop_-_1625 (720p).mp4'
-
+import { useSearch } from './SearchProvider';
+import { useEffect } from 'react';
 
 const Services = () => {
   const cardsData = [
@@ -13,8 +14,27 @@ const Services = () => {
     { color: 'green', tip: 'Game Development', secondText: 'Dive into the realm of immersive gameplay experiences. My game development services bring ideas to life, crafting captivating narratives and cutting-edge visuals that engage players on various platforms.', tags: ['C#', 'C++', 'Unity'], img: gameimg },
   ];
 
+  const { isSearchBoxVisible, setIsPageBlurred } = useSearch();
+  useEffect(() => {
+      const blurContainer = document.getElementById('blur-container');
+
+      if (blurContainer) {
+          if (isSearchBoxVisible) {
+              blurContainer.classList.add('blur');
+          } else {
+              blurContainer.classList.remove('blur');
+          }
+      }
+
+      return () => {
+          if (blurContainer) {
+              blurContainer.classList.remove('blur');
+          }
+      };
+  }, [isSearchBoxVisible]);
+
   return (
-    <>
+    <div id='blur-container'>
       <Helmet>
         <meta charSet="utf-8" />
         <title className='text-xs'>Shami's Services - MERN Stack, Game, C++, & React Native Developer</title>
@@ -36,7 +56,7 @@ const Services = () => {
 
         </video>
         <div className="flex flex-col gap-5 mt-16 p-9 justify-center items-center">
-          <h1 className="text-center font-bold text-4xl mb-4 font-serif text-[#f5f5f5] z-50">Services <i class="fa-brands fa-servicestack"></i></h1>
+          <h1 className="text-center font-bold text-4xl mb-4 font-serif text-[#f5f5f5] z-50">Services <i className="fa-brands fa-servicestack"></i></h1>
           <div className="cards flex flex-wrap justify-center items-center gap-5 md:gap-8 lg:gap-8 xl:gap-8">
             {cardsData.map((card, index) => (
               <div
@@ -66,7 +86,7 @@ const Services = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

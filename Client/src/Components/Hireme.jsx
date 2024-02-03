@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import myimg from '../assets/myimg.jpg';
 import { Helmet } from "react-helmet";
 import landingVideo from '../assets/istockphoto-1483562425-640_adpp_is.mp4'
-
+import { useSearch } from './SearchProvider';
 
 function Hireme() {
     const [services, setServices] = useState({
@@ -124,12 +124,29 @@ function Hireme() {
     };
 
 
+    const { isSearchBoxVisible, setIsPageBlurred } = useSearch();
+    useEffect(() => {
+        const blurContainer = document.getElementById('blur-container');
 
+        if (blurContainer) {
+            if (isSearchBoxVisible) {
+                blurContainer.classList.add('blur');
+            } else {
+                blurContainer.classList.remove('blur');
+            }
+        }
+
+        return () => {
+            if (blurContainer) {
+                blurContainer.classList.remove('blur');
+            }
+        };
+    }, [isSearchBoxVisible]);
 
 
 
     return (
-        <>
+        <div id='blur-container'>
             <Helmet>
                 <meta charSet="utf-8" />
                 <title className='text-xs'>Shami's Portfolio  - Hire me | Contact us | MERN Stack, Game, C++, & React Native Developer</title>
@@ -333,7 +350,7 @@ function Hireme() {
                     <ToastContainer />
                 </div>
             </div >
-        </>
+        </div>
     );
 }
 

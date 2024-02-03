@@ -10,6 +10,8 @@ import {
     Button,
 } from "@material-tailwind/react";
 import Loader from "./Loader";
+import { useSearch } from "./SearchProvider";
+
 
 function CodingPortfolio() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -90,8 +92,27 @@ function CodingPortfolio() {
         return truncatedText;
     };
 
+    const { isSearchBoxVisible, setIsPageBlurred } = useSearch();
+    useEffect(() => {
+        const blurContainer = document.getElementById('blur-container');
+
+        if (blurContainer) {
+            if (isSearchBoxVisible) {
+                blurContainer.classList.add('blur');
+            } else {
+                blurContainer.classList.remove('blur');
+            }
+        }
+
+        return () => {
+            if (blurContainer) {
+                blurContainer.classList.remove('blur');
+            }
+        };
+    }, [isSearchBoxVisible]);
+
     return (
-        <div>
+        <div id='blur-container'>
             <Helmet>
                 <meta charSet="utf-8" />
                 <title className='text-xs'>Shami's Coding Portfolio - MERN Stack, Game, C++, & React Native Developer</title>
