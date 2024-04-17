@@ -9,7 +9,7 @@ import {
     Button,
 } from "@material-tailwind/react";
 import Loader from "./Loader";
-import {Helmet }from 'react-helmet'
+import { Helmet } from 'react-helmet'
 import { useSearch } from "./SearchProvider";
 
 function CodingPortfolio() {
@@ -116,7 +116,7 @@ function CodingPortfolio() {
     }, [isSearchBoxVisible]);
     return (
         <div id="blur-container">
-        <Helmet>
+            <Helmet>
                 <meta charSet="utf-8" />
                 <title className='text-xs'>Shami's Designing Portfolio - MERN Stack, Game, C++, & React Native Developer</title>
                 <meta charset="UTF-8" />
@@ -127,72 +127,71 @@ function CodingPortfolio() {
                 hire [game , app, e.g., web] [Lahore JoharTown]" />
                 <meta name="author" content="Ehtisham Ahmed Gondal" />
             </Helmet>
-            {loading ? (
-                <Loader />
-            ) : (
-                <div
-                    className={`p-3 flex-col items-center justify-center mb-2 bg-slate-50 ${isBodyMoved ? "mt-[-40px]" : ""
-                        }`}
-                >
-                    <h2 className="mt-20 text-center text-xl font-serif font-bold">
-                        Designing Portfolio
-                    </h2>
-                    <div className="h-14 flex relative ">
-                        <i className="text-slate-600 mt-24 font-light">Filter By:</i>
-                        <i className="text-black mt-20 absolute right-0">
-                            <button className="p-2 btn" onClick={handleClick}>
-                                <i className="fa-solid fa-caret-down text-slate-900 text-xl"></i>
-                            </button>
-                        </i>
-                        {isDropdownOpen && (
-                            <div
-                                ref={dropdownRef}
-                                className={`absolute bg-white mt-36 w-full rounded-md shadow-md animate__animated animate__fadeInDown scale-y-${isDropdownOpen ? "100" : "0"} z-50`}
-                            >
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 py-3">
-                                    <div className="col-span-1 ">
-                                        <h3 className="text-sm font-medium text-gray-900">Project Types</h3>
-                                        <div className="mt-2 flex flex-col">
-                                            <label className="inline-flex items-center">
-                                                <input type="checkbox" value={"web"} className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" onChange={onChange} />
-                                                <span className="ml-2 text-sm font-normal text-gray-700">Web Development</span>
-                                            </label>
-                                            <label className="inline-flex items-center mt-2">
-                                                <input type="checkbox" className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" onChange={onChange} value={"app"} />
-                                                <span className="ml-2 text-sm font-normal text-gray-700">App Development</span>
-                                            </label>
-                                            <label className="inline-flex items-center mt-2">
-                                                <input type="checkbox" className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" onChange={onChange} value={"game"} />
-                                                <span className="ml-2 text-sm font-normal text-gray-700">Game Development</span>
-                                            </label>
-                                            <label className="inline-flex items-center mt-2">
-                                                <input type="checkbox" className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" onChange={onChange} value={"canva"} />
-                                                <span className="ml-2 text-sm font-normal text-gray-700">Canva</span>
-                                            </label>
-                                        </div>
+
+            <div
+                className={`p-3 flex-col items-center justify-center mb-2 bg-slate-50 ${isBodyMoved ? "mt-[-40px]" : ""
+                    }`}
+            >
+                <h2 className="text-center font-bold text-2xl mb-4 font-serif text-black mt-20 z-50">Designing Portfolio <i class="fa-solid fa-pen"></i></h2>
+                <div className="h-14 flex relative mt-[-20px] ">
+                    <i className="text-slate-600 mt-24 font-light">Filter By:</i>
+                    <i className="text-black mt-20 absolute right-0">
+                        <button className="p-2 btn" onClick={handleClick}>
+                            <i className="fa-solid fa-caret-down text-slate-900 text-xl"></i>
+                        </button>
+                    </i>
+                    {isDropdownOpen && (
+                        <div
+                            ref={dropdownRef}
+                            className={`absolute bg-white mt-36 w-full rounded-md shadow-md animate__animated animate__fadeInDown scale-y-${isDropdownOpen ? "100" : "0"} z-50`}
+                        >
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 py-3">
+                                <div className="col-span-1 ">
+                                    <h3 className="text-sm font-medium text-gray-900">Project Types</h3>
+                                    <div className="mt-2 flex flex-col">
+                                        <label className="inline-flex items-center">
+                                            <input type="checkbox" value={"web"} className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" onChange={onChange} />
+                                            <span className="ml-2 text-sm font-normal text-gray-700">Web Development</span>
+                                        </label>
+                                        <label className="inline-flex items-center mt-2">
+                                            <input type="checkbox" className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" onChange={onChange} value={"app"} />
+                                            <span className="ml-2 text-sm font-normal text-gray-700">App Development</span>
+                                        </label>
+                                        <label className="inline-flex items-center mt-2">
+                                            <input type="checkbox" className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" onChange={onChange} value={"game"} />
+                                            <span className="ml-2 text-sm font-normal text-gray-700">Game Development</span>
+                                        </label>
+                                        <label className="inline-flex items-center mt-2">
+                                            <input type="checkbox" className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" onChange={onChange} value={"canva"} />
+                                            <span className="ml-2 text-sm font-normal text-gray-700">Canva</span>
+                                        </label>
                                     </div>
-                                    <div className="col-span-1">
-                                        <h3 className="text-sm font-medium text-gray-900 ">Project Size & Ranking</h3>
-                                        <div className="mt-2  flex flex-col">
-                                            <label className="inline-flex items-center">
-                                                <input type="checkbox" className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" onChange={onChange} value={"large"} />
-                                                <span className="ml-2 text-sm font-normal text-gray-700">Large Projects</span>
-                                            </label>
-                                            <label className="inline-flex items-center mt-2">
-                                                <input type="checkbox" className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" onChange={onChange} value={"small"} />
-                                                <span className="ml-2 text-sm font-normal text-gray-700">Small Projects</span>
-                                            </label>
-                                            <label className="inline-flex items-center mt-2">
-                                                <input type="checkbox" className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" onChange={onChange} value={"ranked"} />
-                                                <span className="ml-2 text-sm font-normal text-gray-700">Ranked Projects</span>
-                                            </label>
-                                        </div>
+                                </div>
+                                <div className="col-span-1">
+                                    <h3 className="text-sm font-medium text-gray-900 ">Project Size & Ranking</h3>
+                                    <div className="mt-2  flex flex-col">
+                                        <label className="inline-flex items-center">
+                                            <input type="checkbox" className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" onChange={onChange} value={"large"} />
+                                            <span className="ml-2 text-sm font-normal text-gray-700">Large Projects</span>
+                                        </label>
+                                        <label className="inline-flex items-center mt-2">
+                                            <input type="checkbox" className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" onChange={onChange} value={"small"} />
+                                            <span className="ml-2 text-sm font-normal text-gray-700">Small Projects</span>
+                                        </label>
+                                        <label className="inline-flex items-center mt-2">
+                                            <input type="checkbox" className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" onChange={onChange} value={"ranked"} />
+                                            <span className="ml-2 text-sm font-normal text-gray-700">Ranked Projects</span>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
-                        )}
-                    </div>
-                    <hr className="w-full bg-slate-950 mt-20 " />
+                        </div>
+                    )}
+                </div>
+                <hr className="w-full bg-slate-950 mt-20 " />
+                {loading ? (
+                    <Loader />
+                ) : (
                     <div
                         className={`md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3  gap-x-4 gap-y-9 max-w-screen-xl mt-16`}
                     >
@@ -226,8 +225,8 @@ function CodingPortfolio() {
                             </Card>
                         ))}
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     );
 }

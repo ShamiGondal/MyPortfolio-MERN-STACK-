@@ -349,7 +349,7 @@ function Hireme() {
                     </form>
                     <ToastContainer />
                 </div>
-            </div >
+            </div>
         </div>
     );
 }

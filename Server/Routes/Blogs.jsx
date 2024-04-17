@@ -24,6 +24,7 @@ router.post('/addBlog', async (req, res) => {
 });
 
 
+
 router.get('/getBlogs', async (req, res) => {
     try {
       const blogs = await Blog.find();
@@ -33,6 +34,37 @@ router.get('/getBlogs', async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+  
+  router.put('/updateBlog/:blogId', async (req, res) => {
+    const blogId = req.params.blogId;
+    
+    try {
+      // Find the blog post by ID
+      const blog = await Blog.findById(blogId);
+      
+      // If the blog post doesn't exist, return a 404 error
+      if (!blog) {
+        return res.status(404).json({ error: 'Blog not found' });
+      }
+  
+      // Extract the updated data from the request body
+      const updatedBlogData = req.body;
+  
+      // Update the blog post with the new data
+      Object.assign(blog, updatedBlogData);
+  
+      // Save the updated blog post
+      await blog.save();
+  
+      // Return a success message
+      res.status(200).json({ message: 'Blog updated successfully', updatedBlog: blog });
+    } catch (error) {
+      // Handle errors
+      console.error('Error updating blog:', error.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
   
 
 module.exports = router;

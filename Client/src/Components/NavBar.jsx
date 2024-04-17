@@ -40,6 +40,7 @@ function NavBar() {
     const onChange = async (e) => {
         setValue(e.target.value);
 
+
         try {
             // Fetch projects data
             const projectsResponse = await fetch(`${localhost}/api/getProjects`);
@@ -135,7 +136,7 @@ function NavBar() {
             // Open the blog's websiteURL in a new tab
             window.open(selectedBlog.websiteURL, '_blank');
         }
-        
+
     };
 
     // Handle Enter key press and arrow key navigation
@@ -202,6 +203,33 @@ function NavBar() {
         setShowSuggestions(false);
     };
 
+    const renderPredefinedLinks = () => {
+        if (value) {
+            // Don't render predefined links if there is any input
+            return null;
+        }
+
+        else {
+            return (
+
+                <>
+                    <div className="bg-slate-800 p-2 ">
+                        <Link to='/Coding' className='text-white text-xl text-font-extralight italic  '><i class="fa-solid fa-turn-down"></i>  Coding Projects </Link>
+                    </div>
+                    <hr className='bg-white h-1' />
+                    <div className="bg-slate-800 p-2 ">
+                        <Link to='/Designs' className='text-white text-xl text-font-extralight italic '><i class="fa-solid fa-turn-down"></i>  Designing Projects </Link>
+                    </div>
+                    <hr className='bg-white h-1' />
+                    <div className="bg-slate-800 p-2 ">
+                        <Link to='/Blogs' className='text-white text-xl text-font-extralight italic '><i class="fa-solid fa-turn-down"></i> Mine Blogs </Link>
+                    </div>
+                    <hr className='bg-white h-1' />
+                </>
+            );
+        }
+
+    }
     return (
         <>
             <Helmet>
@@ -319,72 +347,102 @@ function NavBar() {
                                 <div className="relative group mt-2">
                                     <button
                                         onClick={toggleSearchBox}
-                                        className={`fa-solid fa-magnifying-glass absolute  right-2 mt-[-5px] p-3 text-gray-400 cursor-pointer z-50 ${searchBoxVisible ? 'hidden' : ''
+                                        className={`fa-solid fa-magnifying-glass absolute rounded-none  right-0 mt-[-12px] p-3  text-xl  text-gray-400 bg-none border-0 shadow-none   cursor-pointer z-50 ${searchBoxVisible ? 'hidden' : ''
                                             }`}
                                     ></button>
 
+
                                     {isSearchBoxVisible && (
-                                        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-                                            <div className="relative flex rounded-lg shadow-sm">
-                                                <div className="flex">
-                                                    <input
-                                                        type="text"
-                                                        id="search-input"
-                                                        security="true"
-                                                        spellCheck="true"
-                                                        onChange={onChange}
-                                                        value={value}
-                                                        placeholder="Qucik Search Projects , Blogs..."
-                                                        name="hs-trailing-button-add-on-with-icon-and-button"
-                                                        className={`py-3 px-4 block w-full md:w-[400px] lg:w-[500px] border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-non dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 ${value || isFocused ? 'bg-white text-black' : 'bg-slate-800'
-                                                            } text-xl `}
-                                                        onFocus={() => {
-                                                            setIsSearchBoxVisible(true);
-                                                            setIsFocused(true);
-                                                        }}
-                                                        onBlur={() => {
-                                                            setTimeout(() => {
-                                                                setIsFocused(false);
-                                                                setShowSuggestions(false);
-                                                                setIsSearchBoxVisible(false);
-                                                            }, 200);
-                                                        }}
-                                                        onKeyDown={handleKeyDown}
-                                                    />
-                                                    <div className="absolute inset-y-0 end-0 flex items-center pointer-events-none z-20 ps-4 p-3">
-                                                        <svg
-                                                            className="flex-shrink-0 h-4 w-4 text-gray-400"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            width={24}
-                                                            height={24}
-                                                            viewBox="0 0 24 24"
-                                                            fill="none"
-                                                            stroke="currentColor"
-                                                            strokeWidth={2}
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                        >
-                                                            <circle cx={11} cy={11} r={8} />
-                                                            <path d="m21 21-4.3-4.3" />
-                                                        </svg>
+                                        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 shadow-md">
+                                            <div className="bg-slate-800 h-60 flex-1 overflow-y-auto ">
+                                                <div className="relative flex rounded-lg shadow-sm ">
+                                                    <div className="flex ">
+                                                        <input
+                                                            type="text"
+                                                            id="search-input"
+                                                            security="true"
+                                                            spellCheck="true"
+                                                            onChange={onChange}
+                                                            value={value}
+                                                            placeholder="Quick Search Projects, Blogs..."
+                                                            name="hs-trailing-button-add-on-with-icon-and-button"
+                                                            className={`py-3 px-4 block w-[260px] sm:w-[300px] md:w-[400px] lg:w-[400px] xl:w-[500px] 2xl:w-80 border-gray-200 shadow-sm rounded-md 
+                                    text-sm
+                                    focus:z-10 focus:border-blue-500 focus:ring-blue-500 
+                                    disabled:opacity-50 disabled:pointer-events-non 
+                                    dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 
+                                    ${value || isFocused ? 'bg-white text-black' : 'bg-slate-800'}
+                                    text-xl
+                                `}
+                                                            onFocus={() => {
+                                                                setIsSearchBoxVisible(true);
+                                                                setIsFocused(true);
+                                                            }}
+                                                            onBlur={() => {
+                                                                setTimeout(() => {
+                                                                    setIsFocused(false);
+                                                                    setShowSuggestions(false);
+                                                                    setIsSearchBoxVisible(false);
+                                                                }, 200);
+                                                            }}
+                                                            onKeyDown={handleKeyDown}
+                                                        />
+
+                                                        <div className="absolute inset-y-0 end-0 flex items-center pointer-events-none z-20 ps-3 p-3  rounded-r-md bg-slate-600 cursor-pointer ">
+                                                            <svg
+                                                                className="flex-shrink-0 h-4 w-5 text-slate-300 cursor-pointer"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                width={24}
+                                                                height={24}
+                                                                viewBox="0 0 24 24"
+                                                                fill="none"
+                                                                stroke="currentColor"
+                                                                strokeWidth={2}
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                            >
+                                                                <circle cx={11} cy={11} r={8} />
+                                                                <path d="m21 21-4.3-4.3" />
+                                                            </svg>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            {showSuggestions && (
-                                                <div className="dropdown bg-[#1f2937] absolute bg-opacity-98 opacity-95 mt-[-4px] w-full z-50 text-light">
-                                                    {data.map((item, index) => (
-                                                        <div key={item._id} onClick={(e) => handleSuggestionClick(item.title, e)}>
-                                                            <li className={`list-item list-none text-light hover:bg-gray-700 p-3 transition-all duration-300 cursor-pointer ${index === focusedIndex ? 'bg-gray-700' : ''}`}>
-                                                                <Link  >{item.title} <i className="fa-solid fa-arrow-up-right-from-square ml-2 text-xs "></i></Link>
-                                                            </li>
-                                                            <hr className="bg-blue-500" />
+                                                {showSuggestions && (
+                                                    <div className="dropdown bg-[#1f2937] absolute   mt-[-4px] w-full z-50 text-light">
+                                                        {data.map((item, index) => (
+                                                            <div key={item._id} onClick={(e) => handleSuggestionClick(item.title, e)}>
+                                                                <li className={`list-item list-none text-light hover:bg-gray-700 p-3 transition-all duration-300 cursor-pointer ${index === focusedIndex ? 'bg-gray-700' : ''}`}>
+                                                                    <Link  >{item.title} <i className="fa-solid fa-arrow-up-right-from-square ml-2 text-xs "></i></Link>
+                                                                </li>
+                                                                <hr className="bg-blue-500" />
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                )}
+
+                                                {/* Conditionally render predefined links based on input */}
+                                                {value ? null : (
+                                                    <div>
+                                                        <div className="bg-slate-800 p-2 ">
+                                                            <Link to='/Coding' className='text-white text-xl text-font-extralight italic  '><i class="fa-solid fa-turn-down"></i>  Coding Projects </Link>
                                                         </div>
-                                                    ))}
-
-                                                </div>
-                                            )}
-
+                                                        <hr className='bg-white h-1' />
+                                                        <div className="bg-slate-800 p-2 ">
+                                                            <Link to='/Designs' className='text-white text-xl text-font-extralight italic '><i class="fa-solid fa-turn-down"></i>  Designing Projects </Link>
+                                                        </div>
+                                                        <hr className='bg-white h-1' />
+                                                        <div className="bg-slate-800 p-2 ">
+                                                            <Link to='/Blogs' className='text-white text-xl text-font-extralight italic '><i class="fa-solid fa-turn-down"></i> Mine Blogs </Link>
+                                                        </div>
+                                                        <hr className='bg-white h-1' />
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="bg-slate-800 flex justify-between rounded-b-md  ">
+                                                <hr className='bg-white h-1' />
+                                                <p className='text-white text-sm p-1 italic right-0' >Projects | Designs | Blogs</p>
+                                            </div>
                                         </div>
                                     )}
                                 </div>

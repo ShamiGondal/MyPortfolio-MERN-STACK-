@@ -13,6 +13,7 @@ import Reservations from './Components/Reservations';
 import Testimonials from './Components/Testimonails';
 import Loader from './Components/Loader';
 import Blogs from './Components/Blogs';
+import ProjectHandling from './Components/ProjectHandling';
 
 function App() {
   const [loading, setLoading] = useState(true);

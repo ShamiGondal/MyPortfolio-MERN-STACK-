@@ -4,12 +4,13 @@ import blogImg from '../assets/React-Native.png'
 import { useSearch } from './SearchProvider';
 import { useEffect } from 'react';
 import { Helmet } from "react-helmet";
+import BlogLoader from "./BlogLoader";
 
 
 function Blogs() {
 
+    const [loading, setLoading] = useState(true);
     const [blogs, setBlogs] = useState([]);
-    document.body.style.backgroundColor = "#020617"
     // const localhost = 'http://localhost:4000'
     const localhost = 'https://myportfolio-server-side.onrender.com'
 
@@ -40,12 +41,21 @@ function Blogs() {
                 const response = await fetch(`${localhost}/api/getBlogs`);
                 const data = await response.json();
                 setBlogs(data);
+                setLoading(false)
             } catch (error) {
                 console.error('Error fetching blogs:', error.message);
             }
         };
 
         fetchBlogs();
+    }, []);
+
+    useEffect(() => {
+        document.body.style.backgroundColor = "#020617";
+
+        return () => {
+            document.body.style.backgroundColor = ""; // Reset background color on component unmount
+        };
     }, []);
 
     const truncateDescription = (description, limit) => {
@@ -68,67 +78,69 @@ function Blogs() {
 
             </Helmet>
             <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-5 mt-24 ">
-                {blogs.map((blog) => (
-                    <a href={blog.websiteURL} className='cursor-pointer ' key={blog._id} target='_blank' rel='noopner' >
-                        <div className=" w-full lg:max-w-full lg:flex hover:transform hover:-translate-y-2 transition-transform duration-300  shadow-sm     ">
-                            {blog.images.map((image, index) => (
-                                <img
-                                    key={index}
-                                    className="lg:h-auto lg:w-48 flex-none bg-contain rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden w-full h-full object-cover"
-                                    title="Mountain"
-                                    src={image}
-                                    alt={`Blog Image ${index + 1}`}
-                                />
-                            ))}
+                <h1 className="text-center font-bold text-4xl mb-4 font-serif text-[#f5f5f5] z-50">Blogs <i className="fa-solid fa-blog"></i></h1>
+                {loading ? (
+                    <BlogLoader />
+                ) : (
+                    blogs.map((blog) => (
+                        <a href={blog.websiteURL} className='cursor-pointer ' key={blog._id} target='_blank' rel='noopner' >
+                            <div className=" w-full lg:max-w-full lg:flex hover:transform hover:-translate-y-2 transition-transform duration-300  shadow-sm     ">
+                                {blog.images.map((image, index) => (
+                                    <img
+                                        key={index}
+                                        className="lg:h-auto lg:w-48 flex-none bg-contain rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden w-full h-full object-cover"
+                                        title="Mountain"
+                                        src={image}
+                                        alt={`Blog Image ${index + 1}`}
+                                    />
+                                ))}
 
-                            <div className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-[#020617] rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center">
-                                        <img className="w-10 h-10 rounded-full mr-4" src={myImg} alt="Avatar of Writer" />
-                                        <div className="text-sm">
-                                            <p className=" text-white leading-none -mt-2">Ehtisham Ahmed</p>
+                                <div className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-[#020617] rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center">
+                                            <img className="w-10 h-10 rounded-full mr-4" src={myImg} alt="Avatar of Writer" />
+                                            <div className="text-sm">
+                                                <p className=" text-white leading-none -mt-2">Ehtisham Ahmed</p>
 
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="mb-8  space-y-2 ">
-                                    <div className="ml-12  mt-[-10px]">
-                                        <div className="text-sm text-[#8997ac] md:flex items-center space-x-1 ">
-                                            <p className='flex'><svg className="fill-current text-[#aab3c2] w-3 h-3 mr-2 mt-1 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                                <path d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z" />
-                                            </svg>
-                                                Members only
-                                            </p>
-                                            <p className="text-[#9eacc0]"> Feb 1, 2024</p>
+                                    <div className="mb-8  space-y-2 ">
+                                        <div className="ml-12  mt-[-10px]">
+                                            <div className="text-sm text-[#8997ac] md:flex items-center space-x-1 ">
+                                                <p className='flex'><svg className="fill-current text-[#aab3c2] w-3 h-3 mr-2 mt-1 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                    <path d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z" />
+                                                </svg>
+                                                    Members only
+                                                </p>
+                                                <p className="text-[#9eacc0]"> Feb 1, 2024</p>
+                                            </div>
                                         </div>
+                                        <div className="text-white font-bold text-xl mb-2 ">{blog.title}</div>
+                                        <p className="text-[#9eacc0] text-base">{blog.description}</p>
                                     </div>
-                                    <div className="text-white font-bold text-xl mb-2 ">{blog.title}</div>
-                                    <p className="text-[#9eacc0] text-base">{blog.description}</p>
-                                </div>
-                                <div className="md:flex items-center justify-between space-y-2">
-                                    <div className="flex items-center">
-                                        <div className="text-sm flex space-x-2">
-                                            <p className="text-[#9eacc0] font-semibold leading-none">.{blog.views} Reads</p>
-                                            <p className="text-[#9eacc0] font-semibold leading-none">.{blog.likes} Likes</p>
+                                    <div className="md:flex items-center justify-between space-y-2">
+                                        <div className="flex items-center">
+                                            <div className="text-sm flex space-x-2">
+                                                <p className="text-[#9eacc0] font-semibold leading-none">.{blog.views} Reads</p>
+                                                <p className="text-[#9eacc0] font-semibold leading-none">.{blog.likes} Likes</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="flex space-x-1 flex-wrap">
-                                        {blog.keyword.map((keyword, index) => (
-                                            <span key={index} className='bg-[#0f172a] bg-opacity-85 px-2 text-white rounded-md text-xs p-1'>
-                                                #{keyword}
-                                            </span>
-                                        ))}
-                                    </div>
+                                        <div className="flex space-x-1 flex-wrap">
+                                            {blog.keyword.map((keyword, index) => (
+                                                <span key={index} className='bg-[#0f172a] bg-opacity-85 px-2 text-white rounded-md text-xs p-1'>
+                                                    #{keyword}
+                                                </span>
+                                            ))}
+                                        </div>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                ))}
-
+                        </a>
+                    ))
+                )}
             </div>
-
-
         </div>
     );
 }
