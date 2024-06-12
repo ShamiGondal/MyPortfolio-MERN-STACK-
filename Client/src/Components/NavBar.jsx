@@ -24,7 +24,7 @@ function NavBar() {
 
     // API base URL
     // const localhost = 'http://localhost:4000';
-    const localhost = 'https://myportfolio-server-side.onrender.com'
+    const localhost = import.meta.env.VITE_REACT_APP_API_URL;
 
     // Toggle mobile menu
     const toggleMenu = () => {

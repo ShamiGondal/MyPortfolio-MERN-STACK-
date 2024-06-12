@@ -12,7 +12,7 @@ function Blogs() {
     const [loading, setLoading] = useState(true);
     const [blogs, setBlogs] = useState([]);
     // const localhost = 'http://localhost:4000'
-    const localhost = 'https://myportfolio-server-side.onrender.com'
+    const localhost = import.meta.env.VITE_REACT_APP_API_URL;
 
     const { isSearchBoxVisible, setIsPageBlurred } = useSearch();
     useEffect(() => {
@@ -40,7 +40,8 @@ function Blogs() {
             try {
                 const response = await fetch(`${localhost}/api/getBlogs`);
                 const data = await response.json();
-                setBlogs(data);
+                const blogs = data.reverse();
+                setBlogs(blogs);
                 setLoading(false)
             } catch (error) {
                 console.error('Error fetching blogs:', error.message);

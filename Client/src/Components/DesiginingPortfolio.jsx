@@ -21,7 +21,7 @@ function CodingPortfolio() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     // const localhost = 'http://localhost:4000/api'
-    const localhost = 'https://myportfolio-server-side.onrender.com'
+    const localhost = import.meta.env.VITE_REACT_APP_API_URL;
 
     const handleClick = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -55,9 +55,11 @@ function CodingPortfolio() {
                     const designingProjects = data.filter(
                         (project) => project.type === "designing"
                     );
+                    
+                    const reversedProjects = designingProjects.reverse();
 
-                    if (designingProjects.length > 0) {
-                        setProjects(designingProjects);
+                    if (reversedProjects.length > 0) {
+                        setProjects(reversedProjects);
                     }
                 } else {
                     console.error("Error fetching projects:", response.statusText);
@@ -214,6 +216,8 @@ function CodingPortfolio() {
                                     <Typography>{truncateText(project.overview, 40)}</Typography>
                                 </CardBody>
                                 <CardFooter className="p-3">
+                                {project.tags && <Typography className="bg-slate-200 p-1 w-fit mb-2 ">#{project.tags}</Typography>}
+                                {project.pDate && <Typography className="bg-slate-200 p-1 w-fit mb-2 ">{project.pDate}</Typography>}
                                     <Link to={`/projects/${project.slug}`} >
                                         <Button variant="gradient" className="text-white p-3 bg-dark">
                                             <span>Read more</span>

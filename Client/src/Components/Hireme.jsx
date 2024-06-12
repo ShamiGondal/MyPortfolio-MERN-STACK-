@@ -10,7 +10,7 @@ function Hireme() {
     const [services, setServices] = useState({
         webDevelopment: false,
         // gameDev: false,
-        // appDevelopment: false,
+        appDevelopment: false,
     });
     document.body.style.backgroundColor = "#f1f5f9"
     const [submitted, setSubmitted] = useState(false);
@@ -69,7 +69,7 @@ function Hireme() {
 
 
     // const localhost = 'http://localhost:4000';
-    const localhost = 'https://myportfolio-server-side.onrender.com'
+    const localhost = import.meta.env.VITE_REACT_APP_API_URL;
 
 
     const submitForm = async (formData, services) => {
@@ -160,8 +160,8 @@ function Hireme() {
                 hire [game , app, e.g., web] [Lahore JoharTown], hireme, contact us, contact , Hire Ehtisham Ahmed Gondal" />
                 <meta name="author" content="Ehtisham Ahmed Gondal" />
             </Helmet>
-            <div className="relative overflow-hidden border-0 border-none">
-                <video
+            <div className="relative overflow-hidden border-0">
+            <video
                     className="absolute top-0 left-0 object-cover w-full h-full  border-0 border-none"
                     autoPlay
                     loop
@@ -170,186 +170,157 @@ function Hireme() {
                     <source src={landingVideo} type="video/mp4" />
 
                 </video>
-                <div className={`relative  mt-16 flex justify-center items-center  p-9 ${submitted ? 'form-submitted' : ''}`}>
-                    <form className={`form w-full sm:w-full md:w-[500px] lg:w-[700px] xl:w-[800px] p-5 bg-opacity-70 relative shadow-md shadow-black rounded-lg ${submitted ? 'flipped' : ''}`} onSubmit={handleSubmit}>
-                        {submitted ? (
-                            <div className="flex flex-col items-center">
-                                <h2 className="text-2xl text-white font-semibold text-center mb-4">We will be responding you soon...!</h2>
-
-                                <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-                                    <div className="flex justify-end px-4 pt-4">
-
+                <div className="min-h-screen flex items-center mt-12   py-4 px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="max-w-md w-full space-y-4 bg-white p-3 rounded-lg shadow-lg">
+                        <div className="text-center">
+                            <img className="mx-auto h-12 w-auto" src={myimg} alt="Workflow" />
+                            <h2 className="mt-6 text-3xl font-extrabold text-black">
+                                Hire Me
+                            </h2>
+                            <p className="mt-2 text-sm text-gray-900">
+                                I am available for your next project.
+                            </p>
+                        </div>
+                        {!submitted ? (
+                            <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+                                <div className="rounded-md shadow-sm -space-y-px">
+                                    <div>
+                                        <label htmlFor="name" className="sr-only">Name</label>
+                                        <input
+                                            id="name"
+                                            name="name"
+                                            type="text"
+                                            autoComplete="name"
+                                            required
+                                            value={formData.name}
+                                            onChange={handleInputChange}
+                                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                            placeholder="Name"
+                                        />
                                     </div>
-                                    <div className="flex flex-col items-center pb-10 text-center">
-                                        <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src={myimg} alt="Bonnie image" />
-                                        <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">Ehtisham Ahmed Gondal</h5>
-                                        <span className="text-sm text-gray-500 dark:text-gray-400">Developer at SoftAims</span>
-                                        <span className="text-sm text-gray-500 dark:text-gray-400">+92163847377</span>
-                                        <div className="flex mt-4 md:mt-6 ">
-                                            <a href="https://www.linkedin.com/in/ehtisham-ahmed-gondal-314019289/" target='_blank' rel="noopener noreferrer" className="inline-flex items-center px-1 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 "><i className="fa-brands fa-linkedin mx-2"></i></a>
-                                            <a href="https://github.com/ShamiGondal" target='_blank' rel="noopener noreferrer" className="inline-flex items-center px-1 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700 ms-3"><i className="fa-brands fa-github mx-2" ></i> </a>
-                                        </div>
+                                    <div>
+                                        <label htmlFor="email" className="sr-only">Email address</label>
+                                        <input
+                                            id="email"
+                                            name="email"
+                                            type="email"
+                                            autoComplete="email"
+                                            required
+                                            value={formData.email}
+                                            onChange={handleInputChange}
+                                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                            placeholder="Email address"
+                                        />
                                     </div>
-                                </div>
-
-                                <button
-                                    className="mt-4 bg-gradient-to-b from-teal-500 to-blue-500 text-white font-medium py-2 px-4 rounded-full shadow-md"
-                                    onClick={resetForm}
-                                >
-                                    Go Back
-                                </button>
-                            </div>
-                        ) : (
-                            <>
-                                <div className="lg:flex xl:flex lg:space-x-8 xl:space-x-8">
-                                    <div className="">
-                                        <div className="md:flex lg:flex xl:flex md:space-x-8 lg:space-x-8 xl:space-x-8 space-y-3 md:space-y-0 lg:space-y-0 xl:space-y-0">
-                                            <div className="space-y-3 flex flex-col">
-                                                <label htmlFor="name" className="text-white font-semibold">
-                                                    Your Name <sup><i className="fa-solid fa-star text-yellow-800"></i></sup>
-                                                </label>
-                                                <input
-                                                    type="name"
-                                                    name="name"
-                                                    value={formData.name}
-                                                    onChange={handleInputChange}
-                                                    placeholder='Type name here...'
-                                                    className="input-field bg-transparent rounded-md h-8 pl-2 text-white focus-within:text-black focus-within:bg-white border-1 border-[#424f63]"
-                                                    spellCheck='true'
-                                                />
-                                            </div>
-                                            <div className="space-y-3 flex flex-col md:mt-0 lg:mt-0 xl:mt-0">
-                                                <label htmlFor="email" className="text-white font-semibold">
-                                                    Your Email <sup><i className="fa-solid fa-star text-yellow-800"></i></sup>
-                                                </label>
-                                                <input
-                                                    name='email'
-                                                    type="email"
-                                                    value={formData.email}
-                                                    onChange={handleInputChange}
-                                                    placeholder='Type email here...' className="input-field bg-transparent rounded-md h-8 pl-2 text-white focus-within:text-black focus-within:bg-white border-1 border-[#424f63]" />
-                                            </div>
-                                        </div>
-                                        <div className="  md:flex lg:flex xl:flex  md:space-x-8 lg:space-x-8 xl:space-x-8">
-                                            <div className="space-y-3 flex flex-col ">
-                                                <label htmlFor="companyName" className="text-white font-semibold mt-3">
-                                                    Company Name
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    name="companyName"  // Corrected the name attribute
-                                                    value={formData.companyName}
-                                                    onChange={handleInputChange}
-                                                    placeholder="Company"
-                                                    className="input-field bg-transparent rounded-md h-8 pl-2 text-white focus-within:text-black focus-within:bg-white border-1 border-[#424f63]"
-                                                />
-                                            </div>
-                                            <div className="space-y-3 flex flex-col ">
-                                                <label htmlFor="websiteURL" className="text-white font-semibold mt-3 ">
-                                                    Website URL
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    name="websiteURL"  // Corrected the name attribute
-                                                    value={formData.websiteURL}
-                                                    onChange={handleInputChange}
-                                                    placeholder="URL"
-                                                    className="input-field bg-transparent rounded-md h-8 pl-2 text-white focus-within:text-black focus-within:bg-white border-1 border-[#424f63] mb-3"
-                                                />
-                                            </div>
-
-                                        </div>
+                                    <div>
+                                        <label htmlFor="companyName" className="sr-only">Company Name</label>
+                                        <input
+                                            id="companyName"
+                                            name="companyName"
+                                            type="text"
+                                            autoComplete="organization"
+                                            value={formData.companyName}
+                                            onChange={handleInputChange}
+                                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                            placeholder="Company Name"
+                                        />
                                     </div>
-                                    <div className="">
-                                        <div className="space-y-3 flex flex-col">
-                                            <label htmlFor="moreDetails" className="text-white font-semibold">
-                                                Additional Information
-                                            </label>
-                                            <textarea
-                                                rows={5}
-                                                placeholder="Any extra info..."
-                                                name='moreDetails'
-                                                type='text'
-                                                maxLength={100}
-                                                onChange={handleInputChange}
-                                                value={formData.moreDetails}
-                                                className="bg-transparent rounded-md h-28 pl-2 text-white focus-within:text-black focus-within:bg-white border-2 border-[#4e5a6b] mb-3"
-                                            />
-                                        </div>
+                                    <div>
+                                        <label htmlFor="websiteURL" className="sr-only">Website URL</label>
+                                        <input
+                                            id="websiteURL"
+                                            name="websiteURL"
+                                            type="text"
+                                            autoComplete="url"
+                                            value={formData.websiteURL}
+                                            onChange={handleInputChange}
+                                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                            placeholder="Website URL"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="moreDetails" className="sr-only">More Details</label>
+                                        <textarea
+                                            id="moreDetails"
+                                            name="moreDetails"
+                                            rows="4"
+                                            value={formData.moreDetails}
+                                            onChange={handleInputChange}
+                                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                            placeholder="More Details"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="budget" className="sr-only">Budget</label>
+                                        <select
+                                            id="budget"
+                                            name="budget"
+                                            value={formData.budget}
+                                            onChange={handleInputChange}
+                                            className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                        >
+                                            <option value="low">Low</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="high">High</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div className=" flex flex-col mt-3 ">
-                                    <label className="text-white font-semibold">Services Required <sup><i className="fa-solid fa-star text-yellow-800"></i></sup></label>
-                                    <div className="flex mt-3 flex-col space-y-3">
-                                        {Object.entries(services).map(([key, value]) => (
-                                            <div key={key} className="flex items-center">
-                                                <input
-                                                    type="checkbox"
-                                                    id={key}
-                                                    checked={value}
-                                                    onChange={() => handleCheckboxChange(key)}
-                                                    className="hidden"
-                                                />
-                                                <label
-                                                    htmlFor={key}
-                                                    className="cursor-pointer flex items-center justify-center w-6 h-6 border-2 border-gray-300 rounded-md transition duration-300 focus-within:border-blue-500"
-                                                >
-                                                    <div
-                                                        className={`w-3 h-3 bg-blue-500 rounded-md transition-transform ${value ? 'transform scale-100' : 'transform scale-0'
-                                                            }`}
-                                                    ></div>
-                                                </label>
-
-
-                                                <label htmlFor={key} className="text-white ml-2">
-                                                    {key.charAt(0).toUpperCase() + key.slice(1)}
-                                                </label>
-                                            </div>
-                                        ))}
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center">
+                                        <input
+                                            id="webDevelopment"
+                                            name="webDevelopment"
+                                            type="checkbox"
+                                            checked={services.webDevelopment}
+                                            onChange={() => handleCheckboxChange('webDevelopment')}
+                                            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                                        />
+                                        <label htmlFor="webDevelopment" className="ml-2 block text-sm text-black">
+                                            Web Development
+                                        </label>
                                     </div>
-
+                                    <div className="flex items-center">
+                                        <input
+                                            id="appDevelopment"
+                                            name="appDevelopment"
+                                            type="checkbox"
+                                            checked={services.appDevelopment}
+                                            onChange={() => handleCheckboxChange('appDevelopment')}
+                                            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                                        />
+                                        <label htmlFor="appDevelopment" className="ml-2 block text-sm text-black">
+                                            App Development
+                                        </label>
+                                    </div>
                                 </div>
-                                <div className="space-y-3 flex flex-col">
-                                    <label htmlFor="budget" className="text-white font-semibold mt-3">
-                                        Budget <sup><i className="fa-solid fa-star text-yellow-800"></i></sup>
-                                    </label>
-                                    <select
-                                        id="budget"
-                                        className="bg-transparent rounded-md h-8 pl-2 text-white focus-within:text-black focus-within:bg-white border border-[#1f2937] focus:border-none"
-                                        onChange={handleInputChange}
-                                        name="budget"
+                                <div>
+                                    <button
+                                        type="submit"
+                                        className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
                                     >
-                                        <option value="low" className='bg-[#1f2937] bg-opacity-85'>Low</option>
-                                        <option value="medium" className='bg-[#1f2937]  bg-opacity-85'>Medium</option>
-                                        <option value="high" className='bg-[#1f2937] bg-opacity-85'>High</option>
-                                    </select>
-
+                                        Submit
+                                    </button>
                                 </div>
-
-                            </>
-                        )}
-                        {!submitted && (
-                            <div className="mt-4 flex justify-end">
+                            </form>
+                        ) : (
+                            <div className="text-center text-black">
+                                <h3 className="text-2xl font-bold mb-4">Thank you for your submission!</h3>
+                                <p className="mb-2">Developer Information:</p>
+                                <p className="mb-2">Email: ehtishamahmedgondal@gmail.com</p>
+                                <p className="mb-2">Contact Number: +923347527078</p>
                                 <button
-                                    className="transition-all transform hover:-translate-y-3 focus:outline-none focus:ring focus:border-blue-300 active:scale-95 relative flex items-center space-x-2 bg-gradient-to-b from-teal-500 to-blue-500 text-white font-medium py-2 px-4 rounded-full shadow-md"
-                                    type="submit"
+                                    onClick={resetForm}
+                                    className="mt-4 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
                                 >
-                                    <div className="svg-wrapper">
-                                        <div className="svg-wrapper">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" className="w-6 h-6 fill-current">
-                                                <path fill="none" d="M0 0h24v24H0z"></path>
-                                                <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <span>Send </span>
+                                    Reset Form
                                 </button>
                             </div>
                         )}
-                    </form>
-                    <ToastContainer />
+                    </div>
                 </div>
+                <ToastContainer />
             </div>
+
         </div>
     );
 }

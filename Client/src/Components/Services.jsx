@@ -76,7 +76,7 @@ const Services = () => {
                 </div>
                 <button
                   className={`btn btn-primary mb-5 md:mt-5 lg:mt-5 xl:mt-5 ${card.tip.toLowerCase().includes("app development") || card.tip.toLowerCase().includes("game") ? 'cursor-not-allowed' : ''}`}
-                  disabled={card.tip.toLowerCase().includes("app development") || card.tip.toLowerCase().includes("game")}
+                  disabled={card.tip.toLowerCase().includes("game")}
                 >
                   <Link to="/Hireme">Contact me</Link>
                 </button>

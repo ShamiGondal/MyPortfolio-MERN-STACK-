@@ -10,7 +10,7 @@ const ProjectDetails = () => {
   console.log("Received Slug:", slug);
   const [project, setProject] = useState(null);
   // const localhost = `http://localhost:4000`;
-  const localhost = 'https://myportfolio-server-side.onrender.com'
+  const localhost = import.meta.env.VITE_REACT_APP_API_URL;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const { isSearchBoxVisible, setIsPageBlurred } = useSearch();

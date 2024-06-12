@@ -22,7 +22,7 @@ function CodingPortfolio() {
     const navigate = useNavigate();
     const [Loading, setLoading] = useState(true)
     // const localhost = 'http://localhost:4000/api'
-    const localhost = 'https://myportfolio-server-side.onrender.com'
+    const localhost =  import.meta.env.VITE_REACT_APP_API_URL;
 
     const handleClick = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -52,10 +52,13 @@ function CodingPortfolio() {
                 const response = await fetch(`${localhost}/api/getProjects`);
                 const data = await response.json();
                 const codingProjects = data.filter(project => project.type === 'coding');
-
+    
+                // Reverse the order of coding projects
+                const reversedProjects = codingProjects.reverse();
+    
                 // Set state only if there are coding projects
-                if (codingProjects.length > 0) {
-                    setProjects(codingProjects);
+                if (reversedProjects.length > 0) {
+                    setProjects(reversedProjects);
                 }
             } catch (error) {
                 console.error("Error fetching projects:", error.message);
@@ -63,9 +66,9 @@ function CodingPortfolio() {
                 setLoading(false)
             }
         };
-
+    
         fetchData();
-    }, []); // Empty dependency array ensures this effect runs only once on mount
+    }, []);
 
     const onChange = (e) => {
         const value = e.target.value;
@@ -214,6 +217,8 @@ function CodingPortfolio() {
                                     <Typography>{truncateText(project.overview, 40)}</Typography>
                                 </CardBody>
                                 <CardFooter className="p-3">
+                               {project.tags && <Typography className="bg-slate-200 p-1 w-fit mb-2 ">#{project.tags}</Typography>}
+                                {project.pDate && <Typography className="bg-slate-200 p-1 w-fit mb-2 ">{project.pDate}</Typography>}
                                     <Link to={`/projects/${project.slug}`}>
                                         <Button variant="gradient" className="text-white p-3 bg-dark">
                                             <span>Read more</span>

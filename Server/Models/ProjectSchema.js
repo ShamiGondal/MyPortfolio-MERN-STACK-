@@ -7,6 +7,8 @@ const projectSchema = new mongoose.Schema({
     required: true,
   },
   title: String,
+  tags:[String],
+  pDate: Date,
   tools:[String],
   image: [String],
   filters: [{

@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 const Reservations = () => {
   const [formDetails, setFormDetails] = useState([]);
   const [reservationReceived, setReservationReceived] = useState(false);
-  const localhost = 'https://myportfolio-server-side.onrender.com'
+  const localhost = import.meta.env.VITE_REACT_APP_API_URL;
   useEffect(() => {
     const fetchFormDetails = async () => {
       try {
