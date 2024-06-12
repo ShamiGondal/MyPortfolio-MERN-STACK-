@@ -1,7 +1,7 @@
 const express = require('express');
-const connectDB = require('./db/connection');
+const connectDB = require('./db/connection.js');
 const cors = require('cors');
-const projects = require('./Routes/ProjectsRotutes')
+const projects = require('./Routes/ProjectsRotutes.js')
 const Blogs = require('./Routes/Blogs.jsx')
 const bodyParser = require('body-parser');
 
